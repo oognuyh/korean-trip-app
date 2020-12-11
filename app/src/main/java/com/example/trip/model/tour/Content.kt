@@ -1,6 +1,6 @@
-package com.example.trip.model
+package com.example.triper.model.tour
 
-data class DetailCommonContent (
+data class Content(
     val contentid: Long, // 콘텐츠ID
     val contenttypeid: Long?, // 콘텐츠타입ID
     val booktour: Int?, // 교과서 속 여행지여부
@@ -23,5 +23,10 @@ data class DetailCommonContent (
     val mapy: Double?, // GPS Y좌표
     val mlevel: Int?, // MAP LEVEL
     val overview: String?, // 콘텐츠 개요 조회
-    val title: String // 제목
+    val title: String, // 제목
+
+    val dist: Long?, // 중심 좌표로부터 거리(단위 m)
+
+    val eventstartdate: String?, // 행사 시작일(축제 정보 요청 시)
+    val eventenddate: String // 행사 종료일(축제 정보 요청 시)
 )
