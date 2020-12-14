@@ -29,7 +29,7 @@ android {
     }
 
     buildFeatures {
-        viewBinding = true
+        dataBinding = true
     }
 
     compileOptions {
@@ -74,7 +74,7 @@ dependencies {
     implementation "com.ramotion.foldingcell:folding-cell:1.2.3"
 
     // Image Slider
-    implementation 'com.github.smarteist:autoimageslider:1.4.0'
+    implementation 'com.github.jama5262:CarouselView:1.1.0'
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
