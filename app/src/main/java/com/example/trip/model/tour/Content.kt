@@ -1,4 +1,4 @@
-package com.example.triper.model.tour
+package com.example.trip.model.tour
 
 data class Content(
     val contentid: Long, // 콘텐츠ID
