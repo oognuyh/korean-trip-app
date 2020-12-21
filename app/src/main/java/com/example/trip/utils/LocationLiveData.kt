@@ -4,23 +4,24 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
 import androidx.lifecycle.LiveData
-import com.example.trip.model.location.LocationInfo
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 
-class LocationLiveData(context: Context) : LiveData<LocationInfo>() {
+class LocationLiveData(context: Context) : LiveData<Location>() {
     private var fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
 
     override fun onInactive() {
         super.onInactive()
+
         fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 
     @SuppressLint("MissingPermission")
     override fun onActive() {
         super.onActive()
+
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location: Location? ->
                 location?.also {
@@ -49,10 +50,7 @@ class LocationLiveData(context: Context) : LiveData<LocationInfo>() {
     }
 
     private fun setLocationData(location: Location) {
-        value = LocationInfo(
-            longitude = location.longitude,
-            latitude = location.latitude
-        )
+        value = location
     }
 
     companion object {
