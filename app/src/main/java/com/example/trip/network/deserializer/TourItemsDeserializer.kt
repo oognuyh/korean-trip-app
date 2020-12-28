@@ -2,7 +2,7 @@ package com.example.trip.network.deserializer
 
 import android.util.Log
 import com.example.trip.model.tour.common.TourItems
-import com.example.trip.utils.genericType
+import com.example.trip.util.genericType
 import com.example.trip.model.tour.Content
 import com.example.trip.model.tour.ContentInfo
 import com.example.trip.model.tour.ContentIntro
