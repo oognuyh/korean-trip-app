@@ -1,7 +1,7 @@
 package com.example.trip.repository.base
 
 import com.example.trip.model.tour.common.TourVO
-import com.example.trip.utils.TourApiException
+import com.example.trip.util.TourApiException
 import retrofit2.Response
 import java.lang.Exception
 

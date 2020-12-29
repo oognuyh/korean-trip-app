@@ -2,7 +2,7 @@ package com.example.trip.repository
 
 import com.example.trip.network.TourApi
 import com.example.trip.repository.base.TourBaseRepository
-import com.example.trip.utils.CONTENT_TYPE
+import com.example.trip.util.CONTENT_TYPE
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlinx.coroutines.Dispatchers
