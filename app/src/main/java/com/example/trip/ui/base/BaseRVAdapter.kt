@@ -2,32 +2,35 @@ package com.example.trip.ui.base
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
 
-abstract class BaseRVAdapter<B: ViewBinding, T> : RecyclerView.Adapter<BaseRVAdapter<B, T>.ViewHolder>() {
-    var items: List<T>? = null
+abstract class BaseRVAdapter<B: ViewDataBinding, T> : RecyclerView.Adapter<BaseRVAdapter<B, T>.ViewHolder>() {
+    var items: List<T> = emptyList()
+        set(_items) {
+            field = _items
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = getRecyclerViewBinding(LayoutInflater.from(parent.context), parent)
+        val binding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), getLayoutResId(), parent, false) as B
 
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         bind(holder, position)
+        holder.binding.executePendingBindings()
     }
 
-    fun replaceItems(items: List<T>) {
-        this.items = items
-        notifyDataSetChanged()
-    }
-
-    override fun getItemCount() = items?.size ?: 0
+    override fun getItemCount() = items.size
 
     abstract fun bind(holder: ViewHolder, position: Int)
 
-    abstract fun getRecyclerViewBinding(inflater: LayoutInflater, parent: ViewGroup): B
+    @LayoutRes
+    abstract fun getLayoutResId(): Int
 
     inner class ViewHolder(val binding: B) : RecyclerView.ViewHolder(binding.root)
 }
