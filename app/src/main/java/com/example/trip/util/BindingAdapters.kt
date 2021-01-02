@@ -1,7 +1,6 @@
 package com.example.trip.util
 
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.databinding.BindingAdapter
@@ -13,8 +12,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.trip.R
-import com.example.trip.model.tour.Content
-import com.example.trip.ui.home.HomeFragment
+import com.example.trip.ui.base.BaseRVAdapter
 
 @BindingAdapter("imageUrl", "progressBar")
 fun setImageFromUrl(imageView: ImageView, imageUrl: String?, progressBar: ProgressBar) {
@@ -33,23 +31,18 @@ fun setImageFromUrl(imageView: ImageView, imageUrl: String?, progressBar: Progre
                     progressBar.hide()
                     return false
                 }
-
             })
             .thumbnail(0.1f)
             .into(imageView)
 }
 
+@Suppress("UNCHECKED_CAST")
 @BindingAdapter("items")
-fun setRecyclerViewItems(recyclerView: RecyclerView, items: List<Content>?) {
-    if (recyclerView.adapter == null) {
-        Log.d("DBG", (recyclerView.adapter is HomeFragment.ForYouRVAdapter).toString())
-    }
+fun<T> setRecyclerViewItems(recyclerView: RecyclerView, items: List<T>?) {
+    if (items == null) return
 
     recyclerView.adapter?.let { adapter ->
-        when(adapter) {
-            is HomeFragment.FestivalRVAdapter -> adapter.items = items
-            is HomeFragment.ForYouRVAdapter -> adapter.items = items
-            is HomeFragment.CourseRVAdapter -> adapter.items = items
-        }
+        adapter as BaseRVAdapter<*, T>
+        adapter.items = items
     }
 }
