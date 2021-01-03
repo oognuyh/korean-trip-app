@@ -1,4 +1,4 @@
-package com.example.trip.utils
+package com.example.trip.util
 
 object CONTENT_TYPE {
     val TOURIST_ATTRACTION = "12"

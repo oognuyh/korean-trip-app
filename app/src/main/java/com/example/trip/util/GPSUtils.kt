@@ -1,4 +1,4 @@
-package com.example.trip.utils
+package com.example.trip.util
 
 import android.app.Activity
 import android.content.ContentValues.TAG

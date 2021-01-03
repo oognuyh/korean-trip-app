@@ -1,4 +1,4 @@
-package com.example.trip.utils
+package com.example.trip.util
 
 import java.io.IOException
 

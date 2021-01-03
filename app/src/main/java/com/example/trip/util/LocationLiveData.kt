@@ -1,4 +1,4 @@
-package com.example.trip.utils
+package com.example.trip.util
 
 import android.annotation.SuppressLint
 import android.content.Context
