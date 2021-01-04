@@ -29,7 +29,8 @@ android {
     }
 
     buildFeatures {
-        viewBinding = true
+        viewBinding true
+        dataBinding true
     }
 
     compileOptions {
@@ -73,8 +74,8 @@ dependencies {
     // Folding Cell
     implementation "com.ramotion.foldingcell:folding-cell:1.2.3"
 
-    // Image Slider
-    implementation 'com.github.jama5262:CarouselView:1.1.0'
+    // Indicator
+    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
@@ -86,6 +87,9 @@ dependencies {
 
     // TimelineView
     implementation 'com.github.vipulasri:timelineview:1.1.4'
+
+    // Permission
+    implementation 'com.karumi:dexter:6.2.2'
 
     // Google Location Service
     implementation 'com.google.android.gms:play-services-location:17.1.0'
