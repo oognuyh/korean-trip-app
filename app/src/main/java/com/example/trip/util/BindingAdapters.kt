@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -13,6 +14,8 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.trip.R
 import com.example.trip.ui.base.BaseRVAdapter
+import com.tbuonomo.viewpagerdotsindicator.BaseDotsIndicator
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 
 @BindingAdapter("imageUrl", "progressBar")
 fun setImageFromUrl(imageView: ImageView, imageUrl: String?, progressBar: ProgressBar) {
@@ -34,6 +37,13 @@ fun setImageFromUrl(imageView: ImageView, imageUrl: String?, progressBar: Progre
             })
             .thumbnail(0.1f)
             .into(imageView)
+}
+
+@BindingAdapter("indicator")
+fun setViewPagerWithIndicator(viewPager2: ViewPager2, dotsIndicator: DotsIndicator) {
+    viewPager2.adapter?.let {
+        dotsIndicator.setViewPager2(viewPager2)
+    }
 }
 
 @Suppress("UNCHECKED_CAST")
