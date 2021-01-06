@@ -17,7 +17,7 @@ class TourRepository(private val api: TourApi) : TourBaseRepository() {
     suspend fun getCourseList(
         numOfRows: String = "20",
         pageNo: String,
-        courseType: String,
+        courseType: String? = null,
     ) = withContext(Dispatchers.IO) {
         apiRequest {
             api.fetchContentList(numOfRows, pageNo, CONTENT_TYPE.COURSE, CAT1_COURSE, courseType)
