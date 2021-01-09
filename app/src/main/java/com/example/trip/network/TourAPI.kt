@@ -118,7 +118,7 @@ interface TourApi {
             val client = OkHttpClient.Builder()
                 .addInterceptor(interceptor)
                 .connectTimeout(1, TimeUnit.MINUTES)
-                .readTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(300, TimeUnit.SECONDS)
                 .writeTimeout(15, TimeUnit.SECONDS)
                 .build()
 
