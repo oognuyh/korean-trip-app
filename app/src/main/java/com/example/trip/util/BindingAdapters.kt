@@ -1,6 +1,7 @@
 package com.example.trip.util
 
 import android.graphics.drawable.Drawable
+import android.os.Handler
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.databinding.BindingAdapter
@@ -54,5 +55,35 @@ fun<T> setRecyclerViewItems(recyclerView: RecyclerView, items: List<T>?) {
     recyclerView.adapter?.let { adapter ->
         adapter as BaseRVAdapter<*, T>
         adapter.items = items
+    }
+}
+
+@Suppress("UNCHECKED_CAST")
+@BindingAdapter("items")
+fun<T> setRecyclerViewItems(viewPager2: ViewPager2, items: List<T>?) {
+    if (items == null) return
+
+    viewPager2.adapter?.let { adapter ->
+        adapter as BaseRVAdapter<*, T>
+        adapter.items = items
+    }
+}
+
+@BindingAdapter("setAutoScroll")
+fun setViewPager2WithAutoScroll(viewPager2: ViewPager2, isOn: Boolean) {
+    if (isOn) {
+        val scrollHandler = Handler()
+        val nextPage = Runnable {
+            viewPager2.currentItem = if (viewPager2.currentItem == (viewPager2.adapter as BaseRVAdapter<*, *>).itemCount - 1) 0 else viewPager2.currentItem + 1
+        }
+
+        viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                scrollHandler.removeCallbacks(nextPage)
+                scrollHandler.postDelayed(nextPage, 3000)
+            }
+        })
     }
 }
