@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context=".ui.MainActivity">
 
-    <include layout="@layout/appbar"/>
+
 
     <fragment
         android:id="@+id/nav_host_fragment"
@@ -26,5 +26,4 @@
         android:layout_gravity="bottom"
         app:labelVisibilityMode="unlabeled"
         app:menu="@menu/bottom_menu"/>
-
 </LinearLayout>
