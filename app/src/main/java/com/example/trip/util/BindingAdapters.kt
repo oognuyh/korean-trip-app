@@ -2,6 +2,7 @@ package com.example.trip.util
 
 import android.graphics.drawable.Drawable
 import android.os.Handler
+import android.provider.Settings.System.getString
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.databinding.BindingAdapter
@@ -15,6 +16,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.trip.R
 import com.example.trip.ui.base.BaseRVAdapter
+import com.skt.Tmap.TMapView
 import com.tbuonomo.viewpagerdotsindicator.BaseDotsIndicator
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 
