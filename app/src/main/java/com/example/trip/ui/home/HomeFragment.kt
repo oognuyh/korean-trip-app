@@ -2,84 +2,53 @@ package com.example.trip.ui.home
 
 import android.os.Bundle
 import android.view.View
-import android.widget.TableLayout
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.findFragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager.widget.ViewPager
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.example.trip.R
-import com.example.trip.model.AreaBasedContent
-import com.example.trip.model.SearchFestivalContent
-import com.example.trip.network.TourAPIService
-import com.example.trip.repository.TourAPIRepository
-import com.example.trip.ui.home.adapter.HomeViewPagerAdapter
-import com.example.trip.utils.loadImage
+import com.example.trip.databinding.FragmentHomeBinding
+import com.example.trip.network.TourApi
+import com.example.trip.repository.TourRepository
+import com.example.trip.ui.base.BaseFragment
+import com.example.trip.ui.home.adapter.CourseAdapter
+import com.example.trip.ui.home.adapter.FestivalAdapter
+import com.example.trip.ui.home.adapter.ForYouAdapter
 import com.example.trip.viewmodel.HomeViewModel
-import com.example.trip.viewmodel.factory.HomeViewModelFactory
-import com.google.android.material.tabs.TabLayout
-import com.jama.carouselview.enums.IndicatorAnimationType
-import com.jama.carouselview.enums.OffsetType
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.page_home_course.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.example.trip.viewmodel.factory.ViewModelFactory
 
-/* todo
- * 1. display festival banner - Done
- * 2. display contents with user based recommendation
- * 3. display the recommendation contents by TOUR API 3.0 - Done
- */
-
-class HomeFragment : Fragment(R.layout.fragment_home) {
-    lateinit var viewModel: HomeViewModel
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+    private lateinit var navController: NavController
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupToolbar()
         setupViewModel()
-        viewModel.fetchCourseItems()
-        setupCourseViewPager()
+        setupAdapter()
+    }
 
-        observeFestivalItems()
+    private fun setupAdapter() {
+        binding.courseRV.adapter = CourseAdapter()
+        binding.festivalRV.adapter = FestivalAdapter()
+        binding.forYouRV.adapter = ForYouAdapter()
+    }
+
+    private fun setupToolbar() {
+        navController = findNavController()
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+
+        binding.headerLayout.toolbar.setupWithNavController(navController, appBarConfiguration)
     }
 
     private fun setupViewModel() {
-        val repository = TourAPIRepository(TourAPIService)
-        val factory = HomeViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+        val repository = TourRepository(TourApi.invoke())
+        val factory = ViewModelFactory(repository)
+        val viewModel = ViewModelProvider(this, factory).get(HomeViewModel::class.java)
+
+        binding.viewModel = viewModel
     }
 
-    private fun setupCourseViewPager() {
-        val homeViewpagerAdapter = HomeViewPagerAdapter(childFragmentManager)
-        vp_home_course.adapter = homeViewpagerAdapter
-        tl_home_course.setupWithViewPager(vp_home_course)
-    }
-
-    private fun setupFestivalBanner(contents: List<SearchFestivalContent>) {
-        cv_home_festival_banner.apply {
-            size = contents.size
-            setCarouselViewListener { view, position ->
-                val title = contents[position].title
-                val imageUrl = contents[position].firstimage
-                if (imageUrl != null) {
-                    context.loadImage(imageUrl, view.findViewById(R.id.iv_home_banner_image))
-                    indicatorAnimationType = IndicatorAnimationType.THIN_WORM
-                    carouselOffset = OffsetType.CENTER
-                    view.findViewById<TextView>(R.id.tv_home_banner_title).text = title
-                }
-            }
-            show()
-        }
-    }
-
-    private fun observeFestivalItems() {
-        viewModel.fetchFestivalItems()
-        viewModel.festivalItems.observe(viewLifecycleOwner, { festivals ->
-            CoroutineScope(Dispatchers.Main).launch {
-                setupFestivalBanner(festivals)
-            }
-        })
-    }
+    override fun getLayoutResId() = R.layout.fragment_home
 }
