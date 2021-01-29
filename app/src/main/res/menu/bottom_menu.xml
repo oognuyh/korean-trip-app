@@ -6,21 +6,20 @@
     <item
         android:id="@+id/homeFragment"
         android:title="Home"
-        android:icon="@drawable/ic_baseline_home_24" />
+        android:icon="@drawable/ic_home" />
 
     <item
         android:id="@+id/aroundFragment"
         android:title="Around"
-        android:icon="@drawable/ic_baseline_explore_24"/>
+        android:icon="@drawable/ic_explore"/>
 
     <item
-        android:id="@+id/itineraryFragment"
+        android:id="@+id/planFragment"
         android:title="Itinerary"
-        android:icon="@drawable/ic_baseline_event_note_24"/>
+        android:icon="@drawable/ic_plan"/>
 
     <item
         android:id="@+id/accountFragment"
         android:title="Account"
-        android:icon="@drawable/ic_baseline_settings_24"/>
-
+        android:icon="@drawable/ic_account_24"/>
 </menu>
